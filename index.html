@@ -37,12 +37,7 @@
 <body>
 
 	<div id="app">
-		<p v-html="wizard + ' ' + (
-			wizard == harry ? hedwig :
-			wizard == ron ? scabbers :
-			wizard == hermione ? crookshanks : ''
-			)"
-		></p>
+		<p v-for="wizard in wizards()" v-html="wizard.name + ' ' + wizard.pet"></p>
 	</div>
 
 	<script>
@@ -78,7 +73,7 @@
 
 			},
 			methods: {
-				wizard: function () {
+				wizards: function () {
 					return [
 						{ name: this.harry, pet: this.hedwig },
 						{ name: this.ron, pet: this.scabbers },
