@@ -37,7 +37,12 @@
 <body>
 
 	<div id="app">
-		<p v-html="incendio(lumos(wizard))"></p>
+		<p v-html="wizard + ' ' + (
+			wizard == harry ? hedwig :
+			wizard == ron ? scabbers :
+			wizard == hermione ? crookshanks : ''
+			)"
+		></p>
 	</div>
 
 	<script>
@@ -63,13 +68,27 @@
 		var app = new Vue({
 			el: "#app",
 			data: {
-				wizard: emojify("wizard")
+				wizard: "",
+				harry: emojify("harry"),
+				hedwig: emojify("hedwig"),
+				ron: emojify("ron"),
+				scabbers: emojify("scabbers"),
+				hermione: emojify("hermione"),
+				crookshanks: emojify("crookshanks")
+
 			},
 			methods: {
-				lumos: cast(emojify("lumos")),
-				incendio: cast(emojify("incendio"))
-		}
-})
+				wizard: function () {
+					return [
+						{ name: this.harry, pet: this.hedwig },
+						{ name: this.ron, pet: this.scabbers },
+						{ name: this.hermione, pet: this.crookshanks }
+					]
+				}
+			}
+		})
+
+		app.wizard = app.harry
 
 	</script>
 
