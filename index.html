@@ -9,39 +9,35 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900">
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 	<style>
+		:root {
+			font: 1rem/1.175 "BlinkMacSystemFont", -apple-system, "Roboto", sans-serif;
+		}
 
-		/* resets */
-* { color: inherit; }
-input { font: inherit; border: unset; background: unset; }
-input:focus { outline: unset; }
+		#app {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100vw;
+			height: 100vh;
+			font-weight: 900;
+			font-size: 8rem;
+			color: hsl(0, 0%, 100%);
+			background: hsl(240, 100%, 67%);
+			user-select: none;
+		}
 
-:root {
-	font: 1rem/1.175 "BlinkMacSystemFont", -apple-system, "Roboto", sans-seri;
-}
-
-#app {
-	display: flex;
-	flex-direction: column; justify-content: center; align-items: center;
-	width: 100vw; height: 100vh;
-	font-weight: 900; font-size: 8rem;
-	color: hsl(0, 0%, 100%);
-	background: hsl(240, 100%, 67%);
-}
-
-input { text-align: center; }
-
-img {
-	width: 8rem; height: 8rem;
-	vertical-align: calc(-0.12109375em);
-}
-
-		</style>
+		img {
+			width: 8rem;
+			height: 8rem;
+			vertical-align: calc(-0.12109375em);
+		}
+	</style>
 </head>
 
 <body>
 
 	<div id="app">
-		<p v-html="wizard"></p>
+		<p v-html="incendio(lumos(wizard))"></p>
 	</div>
 
 	<script>
@@ -67,11 +63,13 @@ img {
 		var app = new Vue({
 			el: "#app",
 			data: {
-				data: {
-					wizard: emojify('wizard')
-				}
-			}
-		})
+				wizard: emojify("wizard")
+			},
+			methods: {
+				lumos: cast(emojify("lumos")),
+				incendio: cast(emojify("incendio"))
+		}
+})
 
 	</script>
 
