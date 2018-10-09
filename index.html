@@ -31,15 +31,22 @@
 			height: 8rem;
 			vertical-align: calc(-0.12109375em);
 		}
+
+		.breathe--man { animation: breathe 4.0s infinite; }
+		.breathe--dog { animation: breathe 0.5s infinite; }
+
+		@keyframes breathe {
+			0% { transform: scale(0.95); }
+			50% { transform: scale(1.05); }
+			100% { transform: scale(0.95); }
+		}
 	</style>
 </head>
 
 <body>
 
-	<div id="app">
-		<wizard :name="harry" :cast="oculus_reparo"></wizard>
-		<wizard :name="ron" :cast="wingardium_leviosa"></wizard>
-		<wizard :name="hermione" :cast="alohomora"></wizard>
+	<div id="app" :style="{background: background() }">
+		<p @click="animagus" v-html="active" :class="breathe()"></p>
 	</div>
 
 	<script>
@@ -52,41 +59,31 @@
 			return out
 		}
 
-		// cast returns a spell (function) that decorates the wizard
-		function cast(emoji) {
-			var magic = emojify("magic")
-			return function (wizard) {
-				return wizard + " " + magic + " " + emoji + " " + magic
-			}
-		}
-
-		Vue.component("wizard", {
-			props: ["name", "cast"],
-			template: `<p v-html="cast(name)"></p>`
-		})
-
-		// Vue.component("harry", {
-		// 	template: `<p>` + emojify("harry") + `</p>`
-		// })
-		// Vue.component("ron", {
-		// 	template: `<p>` + emojify("ron") + `</p>`
-		// })
-		// Vue.component("hermione", {
-		// 	template: `<p>` + emojify("hermione") + `</p>`
-		// })
-
 		var app = new Vue({
 			el: "#app",
 			data: {
-				wizard: "",
-				harry: emojify("harry"),
-				ron: emojify("ron"),
-				hermione: emojify("hermione")
+				active: emojify("sirius--man"),
+				sirius: {
+					man: emojify("sirius--man"),
+					dog: emojify("sirius--dog")
+				}
 			},
 			methods: {
-				oculus_reparo: cast(emojify("oculus-reparo")),
-				wingardium_leviosa: cast(emojify("wingardium-leviosa")),
-				alohomora: cast(emojify("alohomora"))
+				animagus: function () {
+					this.active = (
+						this.active == this.sirius.man ? this.sirius.dog : this.sirius.man
+					)
+				},
+				breathe: function () {
+					return (
+						this.active == this.sirius.man ? "breathe--man" : "breathe--dog"
+					)
+				},
+				background: function () {
+					return (
+						this.active == this.sirius.man ? "" : "black"
+					)
+				}
 			}
 		})
 
